@@ -1,0 +1,72 @@
+* {
+    justify-content: center;
+    border: 0;
+    margin: 0;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+    background-image: url(background-page.png);
+    background-size: repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: "Jost", sans-serif ;
+}
+
+nav {
+    height: 4.375rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: 0.625rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+}
+nav div {
+    display: flex;
+    justify-content: center;
+    gap: 3.125rem;
+}
+.carousel {
+    width: 73.75rem;
+    height: 35rem;
+}
+
+.filter-box {
+    display: flex;
+    background-color: #232323;
+    margin-top: 3.75rem;
+    margin-bottom: 4.375rem;
+    border-radius: 1.25rem;
+    width: 75rem;
+    height: 20rem;
+}
+
+.row {
+    width: 75rem;
+    gap: 1.25rem;
+}
+
+.card {
+    /* display: flex; */
+    gap: 1.25rem;
+    width: 23.75rem;
+    padding: 0.9375rem 0.9375rem 1.25rem 0.9375rem;
+    border-radius: 1.25rem;
+    background-color: #232323;
+    color: white;
+}
+
+.card img {
+    width: 21.875rem;
+    height: 31.25rem;
+    border-radius: 0.625rem;
+}
