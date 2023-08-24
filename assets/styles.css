@@ -1,10 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 * {
     justify-content: center;
     border: 0;
     margin: 0;
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 body {
     background-image: url(background-page.png);
@@ -14,6 +14,7 @@ body {
     align-items: center;
     flex-direction: column;
     font-family: "Jost", sans-serif ;
+    color: white;
 }
 
 nav {
@@ -42,6 +43,9 @@ nav div {
 
 .filter-box {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     background-color: #232323;
     margin-top: 3.75rem;
     margin-bottom: 4.375rem;
@@ -50,13 +54,56 @@ nav div {
     height: 20rem;
 }
 
+.search-button {
+    display: flex;
+    width: 180px;
+    height: 40px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 10px;
+    background-color: #219EE8;
+    color: white;
+}
+
+.search-button:hover {
+    background-color: #1c8dce;
+}
+
+.show-all-button {
+    display: flex;
+    width: auto;
+    height: 40px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: #219EE8;
+    color: white;
+}
+
+.filter-options {
+    display: flex;
+    justify-content: space-evenly;
+    height: 190px;
+    gap: 20px;
+}
+
+#directorOptions, #sortOptions {
+    background-color: #232323;
+    color: white;
+    border: solid 1px #219EE8;
+    height: 40px;
+    width: 270px;
+    border-radius: 10px;
+}
 .row {
     width: 75rem;
     gap: 1.25rem;
 }
 
 .card {
-    /* display: flex; */
     gap: 1.25rem;
     width: 23.75rem;
     padding: 0.9375rem 0.9375rem 1.25rem 0.9375rem;
@@ -69,4 +116,22 @@ nav div {
     width: 21.875rem;
     height: 31.25rem;
     border-radius: 0.625rem;
+}
+
+.carousel-control-prev {
+    margin-left: -120px;
+}
+
+.carousel-control-next {
+    margin-right: -120px;
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 40px;
+    margin-right: 395px;
+    width: 48.75rem;
+    text-align: left;
 }
