@@ -17,7 +17,7 @@ const getData = () => {
         })
 }
 
-getData();
+// getData();
 
 function buildCards(films) {
     const cardsContainer = document.querySelector(".row");
@@ -73,13 +73,22 @@ const createDirectorsDropdown = (films) => {
     //   const showAllOption = document.createElement("option");
     //   showAllOption.innerText = "Show all movies";
     // dropdown.appendChild(showAllOption);
+     // Add "Show All" option
+    
+      const showAllOption = document.createElement("option");
+      showAllOption.value = "All Directors";
+      showAllOption.innerText = "All Directors";
+      dropdown.appendChild(showAllOption);
     
     uniquedirectorArray.forEach((directorName) => {
         const option = document.createElement("option");
+        option.value = directorName;
         option.innerText = directorName;
         dropdown.appendChild(option);
     });
+    // console.log(uniquedirectorArray);
 };
+
 
 const sortMovies = (films, sortOption) => {
       const sortedFilms = [...films]; // Copy the films array to avoid modifying the original
@@ -102,29 +111,114 @@ const sortMovies = (films, sortOption) => {
       return sortedFilms;
 };
     
+// const filterByDropdown = (films, selectedDirector) => {
+//       return films.filter((film) => film.director === selectedDirector);
+// };
+
 const filterByDropdown = (films, selectedDirector) => {
+      if (selectedDirector === "All Directors") {
+        return films;
+      }
       return films.filter((film) => film.director === selectedDirector);
 };
+    
+// const setEventListeners = (films) => {
+//     const searchButton = document.querySelector(".search-button");
+//       searchButton.addEventListener("click", () => {
+//         const selectedDirector = document.getElementById("directorOptions").value;
+//         const selectedSort = document.getElementById("sortOptions").value;
+//         let filteredMovies = films;
+
+//         if (selectedDirector) {
+//           filteredMovies = filterByDropdown(films, selectedDirector);
+//         }
+
+//         const sortedMovies = sortMovies(filteredMovies, selectedSort);
+//         buildCards(sortedMovies);
+//       });
+
+//     const showAllButton = document.querySelector(".show-all-button");
+//       showAllButton.addEventListener("click", () => {
+//         document.getElementById("directorOptions").selectedIndex = 0;
+//         document.getElementById("sortOptions").selectedIndex = 0;
+//         buildCards(films);
+//       });
+    
+    // const dateSlider = document.getElementById("dateSlider");
+    // noUiSlider.create(dateSlider, {
+    //   start: [1920, 2023], // Start and end years
+    //   connect: true,
+    //   range: {
+    //     min: 1920,
+    //     max: 2023,
+    //   },
+    //   tooltips: [true, true], // Show tooltips
+    //   format: {
+    //     to: (value) => Math.floor(value), // Display whole years
+    //     from: (value) => parseFloat(value),
+    //   },
+    // });
+
+    // const filterByDateRange = (films, minYear, maxYear) => {
+    //   return films.filter((film) => {
+    //     const releaseYear = parseInt(film.release_date.split("-")[0]);
+    //     return releaseYear >= minYear && releaseYear <= maxYear;
+    //   });
+    // };
+// }
 
 const setEventListeners = (films) => {
-    const searchButton = document.querySelector(".search-button");
+      const searchButton = document.querySelector(".search-button");
+
+      const dateSlider = document.getElementById("dateSlider");
+      noUiSlider.create(dateSlider, {
+        start: [1986, 2023], // Start and end years
+        connect: true,
+        range: {
+          min: 1986,
+          max: 2023,
+        },
+        tooltips: [true, true], // Show tooltips
+        format: {
+          to: (value) => Math.floor(value), // Display whole years
+          from: (value) => parseFloat(value),
+        },
+      });
+
       searchButton.addEventListener("click", () => {
         const selectedDirector = document.getElementById("directorOptions").value;
         const selectedSort = document.getElementById("sortOptions").value;
+        const selectedMinYear = parseInt(dateSlider.noUiSlider.get()[0]);
+        const selectedMaxYear = parseInt(dateSlider.noUiSlider.get()[1]);
+
         let filteredMovies = films;
 
         if (selectedDirector) {
           filteredMovies = filterByDropdown(films, selectedDirector);
         }
 
-        const sortedMovies = sortMovies(filteredMovies, selectedSort);
+        const filteredByDateMovies = filterByDateRange(filteredMovies, selectedMinYear, selectedMaxYear);
+        const sortedMovies = sortMovies(filteredByDateMovies, selectedSort);
         buildCards(sortedMovies);
       });
 
-    const showAllButton = document.querySelector(".show-all-button");
+      const showAllButton = document.querySelector(".show-all-button");
       showAllButton.addEventListener("click", () => {
         document.getElementById("directorOptions").selectedIndex = 0;
         document.getElementById("sortOptions").selectedIndex = 0;
+        dateSlider.noUiSlider.set([1986, 2023]); // Reset date slider
         buildCards(films);
       });
-    };
+};
+    
+const filterByDateRange = (films, minYear, maxYear) => {
+      return films.filter((film) => {
+        const releaseYear = parseInt(film.release_date.split("-")[0]);
+        return releaseYear >= minYear && releaseYear <= maxYear;
+      });
+};
+    
+ getData().then((films) => {
+      setEventListeners(films);
+ });
+    

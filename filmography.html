@@ -9,6 +9,10 @@
       integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.css"
+    />
     <link rel="stylesheet" href="assets/styles.css" />
     <title>Studio Ghibli Movies</title>
   </head>
@@ -19,7 +23,7 @@
       </a> -->
       <div>
         <a href="index.html">Home</a>
-        <a href="filmography.html">Filmography</a>
+        <a href="filmography.html" class="active">Filmography</a>
         <a href="about.html">About</a>
       </div>
     </nav>
@@ -34,7 +38,9 @@
           <option value="oldest">Oldest</option>
           <option value="newest">Newest</option>
           <option value="rating">Rating</option>
+          <option value="running-time">Running time</option>
         </select>
+        <div id="dateSlider"></div>
         <button class="show-all-button">Show all movies</button>
       </div>
       <button class="search-button">Search</button>
@@ -45,6 +51,7 @@
       integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.js"></script>
     <script src="main2.js"></script>
   </body>
   <footer></footer>

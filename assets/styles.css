@@ -31,11 +31,25 @@ nav a {
     color: white;
     font-size: 1rem;
 }
+
+nav a:hover {
+    color: #219EE8;
+}
+
 nav div {
     display: flex;
     justify-content: center;
     gap: 3.125rem;
 }
+
+.active {
+    color:#219EE8;
+}
+
+#dateSlider {
+    width: 270px;
+}
+
 .carousel {
     width: 73.75rem;
     height: 35rem;
@@ -81,6 +95,10 @@ nav div {
     border-radius: 10px;
     background-color: #219EE8;
     color: white;
+}
+
+.show-all-button:hover {
+    background-color: #1c8dce;
 }
 
 .filter-options {
