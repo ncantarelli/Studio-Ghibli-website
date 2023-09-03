@@ -17,7 +17,6 @@ const getData = () => {
         })
 }
 
-// getData();
 
 function buildCards(films) {
     const cardsContainer = document.querySelector(".row");
@@ -68,12 +67,6 @@ const createDirectorsDropdown = (films) => {
     });
 
     const uniquedirectorArray = [...new Set(directorArray)];
-
-    // // Add "Show all" option
-    //   const showAllOption = document.createElement("option");
-    //   showAllOption.innerText = "Show all movies";
-    // dropdown.appendChild(showAllOption);
-     // Add "Show All" option
     
       const showAllOption = document.createElement("option");
       showAllOption.value = "All Directors";
@@ -86,7 +79,7 @@ const createDirectorsDropdown = (films) => {
         option.innerText = directorName;
         dropdown.appendChild(option);
     });
-    // console.log(uniquedirectorArray);
+
 };
 
 
@@ -111,61 +104,12 @@ const sortMovies = (films, sortOption) => {
       return sortedFilms;
 };
     
-// const filterByDropdown = (films, selectedDirector) => {
-//       return films.filter((film) => film.director === selectedDirector);
-// };
-
 const filterByDropdown = (films, selectedDirector) => {
       if (selectedDirector === "All Directors") {
         return films;
       }
       return films.filter((film) => film.director === selectedDirector);
 };
-    
-// const setEventListeners = (films) => {
-//     const searchButton = document.querySelector(".search-button");
-//       searchButton.addEventListener("click", () => {
-//         const selectedDirector = document.getElementById("directorOptions").value;
-//         const selectedSort = document.getElementById("sortOptions").value;
-//         let filteredMovies = films;
-
-//         if (selectedDirector) {
-//           filteredMovies = filterByDropdown(films, selectedDirector);
-//         }
-
-//         const sortedMovies = sortMovies(filteredMovies, selectedSort);
-//         buildCards(sortedMovies);
-//       });
-
-//     const showAllButton = document.querySelector(".show-all-button");
-//       showAllButton.addEventListener("click", () => {
-//         document.getElementById("directorOptions").selectedIndex = 0;
-//         document.getElementById("sortOptions").selectedIndex = 0;
-//         buildCards(films);
-//       });
-    
-    // const dateSlider = document.getElementById("dateSlider");
-    // noUiSlider.create(dateSlider, {
-    //   start: [1920, 2023], // Start and end years
-    //   connect: true,
-    //   range: {
-    //     min: 1920,
-    //     max: 2023,
-    //   },
-    //   tooltips: [true, true], // Show tooltips
-    //   format: {
-    //     to: (value) => Math.floor(value), // Display whole years
-    //     from: (value) => parseFloat(value),
-    //   },
-    // });
-
-    // const filterByDateRange = (films, minYear, maxYear) => {
-    //   return films.filter((film) => {
-    //     const releaseYear = parseInt(film.release_date.split("-")[0]);
-    //     return releaseYear >= minYear && releaseYear <= maxYear;
-    //   });
-    // };
-// }
 
 const setEventListeners = (films) => {
       const searchButton = document.querySelector(".search-button");
@@ -221,4 +165,20 @@ const filterByDateRange = (films, minYear, maxYear) => {
  getData().then((films) => {
       setEventListeners(films);
  });
-    
+
+
+function showMoreButton() {
+  var dots = document.getElementById("dots");
+  var moreText = document.getElementById("more");
+  var btnText = document.getElementById("myButton");
+
+  if (dots.style.display === "none") {
+    dots.style.display = "inline";
+    btnText.innerHTML = "Show more";
+    moreText.style.display = "none";
+  } else {
+    dots.style.display = "none";
+    btnText.innerHTML = "Show less";
+    moreText.style.display = "inline";
+  }
+}

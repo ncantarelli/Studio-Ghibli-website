@@ -153,3 +153,19 @@ nav div {
     width: 48.75rem;
     text-align: left;
 }
+
+#more {
+    display: none;
+}
+
+#myButton {
+    background-color: #232323;
+    color: white;
+    border: solid 1px #219EE8;
+    border-radius: 10px;
+    width: 200px;
+}
+
+footer {
+    height: 70px;
+}
