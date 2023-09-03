@@ -82,7 +82,6 @@ const createDirectorsDropdown = (films) => {
 
 };
 
-
 const sortMovies = (films, sortOption) => {
       const sortedFilms = [...films]; // Copy the films array to avoid modifying the original
       switch (sortOption) {
@@ -128,24 +127,44 @@ const setEventListeners = (films) => {
           from: (value) => parseFloat(value),
         },
       });
+  
+      // Add an event listener to the slider for the "input" event
+      slider.addEventListener("input", () => {
+        updateFilteredMovies(films);
+      });
+  
+      // searchButton.addEventListener("click", () => {
+      //   const selectedDirector = document.getElementById("directorOptions").value;
+      //   const selectedSort = document.getElementById("sortOptions").value;
+      //   const selectedMinYear = parseInt(dateSlider.noUiSlider.get()[0]);
+      //   const selectedMaxYear = parseInt(dateSlider.noUiSlider.get()[1]);
 
+      //   let filteredMovies = films;
+
+      //   if (selectedDirector) {
+      //     filteredMovies = filterByDropdown(films, selectedDirector);
+      //   }
+
+      //   const filteredByDateMovies = filterByDateRange(filteredMovies, selectedMinYear, selectedMaxYear);
+      //   const sortedMovies = sortMovies(filteredByDateMovies, selectedSort);
+      //   buildCards(sortedMovies);
+      // });
+  
       searchButton.addEventListener("click", () => {
         const selectedDirector = document.getElementById("directorOptions").value;
         const selectedSort = document.getElementById("sortOptions").value;
-        const selectedMinYear = parseInt(dateSlider.noUiSlider.get()[0]);
-        const selectedMaxYear = parseInt(dateSlider.noUiSlider.get()[1]);
 
         let filteredMovies = films;
 
-        if (selectedDirector) {
-          filteredMovies = filterByDropdown(films, selectedDirector);
+        if (selectedDirector !== "All Directors") {
+            filteredMovies = filterByDropdown(films, selectedDirector);
         }
 
-        const filteredByDateMovies = filterByDateRange(filteredMovies, selectedMinYear, selectedMaxYear);
-        const sortedMovies = sortMovies(filteredByDateMovies, selectedSort);
-        buildCards(sortedMovies);
+        const sortedMovies = sortMovies(filteredMovies, selectedSort);
+            buildCards(sortedMovies);
+            updateFilteredMovies(sortedMovies); // Update based on the selected date range
       });
-
+  
       const showAllButton = document.querySelector(".show-all-button");
       showAllButton.addEventListener("click", () => {
         document.getElementById("directorOptions").selectedIndex = 0;
@@ -162,11 +181,7 @@ const filterByDateRange = (films, minYear, maxYear) => {
       });
 };
     
- getData().then((films) => {
-      setEventListeners(films);
- });
-
-
+ 
 function showMoreButton() {
   var dots = document.getElementById("dots");
   var moreText = document.getElementById("more");
@@ -182,3 +197,89 @@ function showMoreButton() {
     moreText.style.display = "inline";
   }
 }
+
+// JavaScript for Custom Slider
+
+const slider = document.getElementById("dateSlider");
+const handle1 = document.getElementById("handle-1");
+const handle2 = document.getElementById("handle-2");
+const tooltip1 = document.getElementById("tooltip-1");
+const tooltip2 = document.getElementById("tooltip-2");
+
+let isDragging = false;
+let activeHandle = null;
+
+// Function to update tooltip position and value
+function updateTooltip(handle, tooltip) {
+  const handleRect = handle.getBoundingClientRect();
+  const sliderRect = slider.getBoundingClientRect();
+  tooltip.style.left = `${handleRect.left - sliderRect.left + handleRect.width / 2}px`;
+  tooltip.textContent = handle.dataset.value;
+}
+
+function updateTooltips() {
+  tooltip1.textContent = handle1.dataset.value;
+  tooltip2.textContent = handle2.dataset.value;
+}
+
+// Initialize handles
+handle1.dataset.value = "1986";
+handle2.dataset.value = "2023";
+updateTooltip(handle1, tooltip1);
+updateTooltip(handle2, tooltip2);
+
+// Event listeners for mouse and touch events
+function startDragging(event, handle) {
+  isDragging = true;
+  activeHandle = handle;
+}
+
+function stopDragging() {
+  isDragging = false;
+  activeHandle = null;
+  updateTooltips(); // Updates the tooltips after dragging stops
+}
+
+function drag(event) {
+  if (!isDragging || !activeHandle) return;
+
+  const sliderRect = slider.getBoundingClientRect();
+  const newValue = ((event.clientX - sliderRect.left) / sliderRect.width) * 100;
+  
+  // Ensure the value stays within the slider bounds (0 to 100)
+  const clampedValue = Math.min(100, Math.max(0, newValue));
+
+  // Update the handle's position and value
+  activeHandle.style.left = `${clampedValue}%`;
+  activeHandle.dataset.value = Math.floor(1986 + (clampedValue / 100) * (2023 - 1986)); // Adjust the value range
+
+  // Update the tooltip position and value
+  updateTooltip(activeHandle, activeHandle === handle1 ? tooltip1 : tooltip2);
+}
+
+handle1.addEventListener("mousedown", (e) => startDragging(e, handle1));
+handle2.addEventListener("mousedown", (e) => startDragging(e, handle2));
+window.addEventListener("mousemove", drag);
+window.addEventListener("mouseup", stopDragging);
+
+handle1.addEventListener("touchstart", (e) => startDragging(e.touches[0], handle1));
+handle2.addEventListener("touchstart", (e) => startDragging(e.touches[0], handle2));
+window.addEventListener("touchmove", (e) => drag(e.touches[0]));
+window.addEventListener("touchend", stopDragging);
+
+function updateFilteredMovies(films) {
+  const selectedMinYear = parseInt(handle1.dataset.value);
+  const selectedMaxYear = parseInt(handle2.dataset.value);
+
+  const filteredMovies = filterByDateRange(films, selectedMinYear, selectedMaxYear);
+
+  buildCards(filteredMovies);
+}
+updateTooltips();
+
+getData().then((films) => {
+  setEventListeners(films);
+
+  // Initially, update the filtered movies based on the default slider values
+  updateFilteredMovies(films);
+});

@@ -9,10 +9,10 @@
       integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
       crossorigin="anonymous"
     />
-    <link
+    <!-- <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.css"
-    />
+    /> -->
     <link rel="stylesheet" href="assets/styles.css" />
     <title>Studio Ghibli Movies</title>
   </head>
@@ -34,18 +34,25 @@
           <option value="rating">Rating</option>
           <option value="running-time">Running time</option>
         </select>
-        <div id="dateSlider"></div>
+        <!-- <div id="dateSlider"></div> -->
+        <div id="dateSlider" class="custom-slider">
+          <div class="slider-track"></div>
+          <div class="slider-handle" id="handle-1"></div>
+          <div class="slider-handle" id="handle-2"></div>
+          <div class="slider-tooltip" id="tooltip-1">1986</div>
+          <div class="slider-tooltip" id="tooltip-2">2023</div>
+        </div>
         <button class="show-all-button">Show all movies</button>
       </div>
       <button class="search-button">Search</button>
     </div>
-    <div class="row"></div>
+    <div id="filteredMovies" class="row"></div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
       crossorigin="anonymous"
     ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.js"></script> -->
     <script src="main2.js"></script>
   </body>
   <footer></footer>
