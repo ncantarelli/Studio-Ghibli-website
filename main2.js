@@ -17,6 +17,7 @@ const getData = () => {
         })
 }
 
+// Movie cards function
 
 function buildCards(films) {
     const cardsContainer = document.querySelector(".row");
@@ -60,6 +61,8 @@ function buildCards(films) {
         
 };
 
+// Filter box and dropdowns
+
 const createDirectorsDropdown = (films) => {
     const dropdown = document.getElementById("directorOptions");
     const directorArray = films.map((film) => {
@@ -83,7 +86,7 @@ const createDirectorsDropdown = (films) => {
 };
 
 const sortMovies = (films, sortOption) => {
-      const sortedFilms = [...films]; // Copy the films array to avoid modifying the original
+      const sortedFilms = [...films]; // Copies the films array to avoid modifying the original
       switch (sortOption) {
         case "oldest":
           sortedFilms.sort((a, b) => a.release_date.localeCompare(b.release_date));
@@ -110,6 +113,8 @@ const filterByDropdown = (films, selectedDirector) => {
       return films.filter((film) => film.director === selectedDirector);
 };
 
+// Event listeners
+
 const setEventListeners = (films) => {
       const searchButton = document.querySelector(".search-button");
 
@@ -128,27 +133,10 @@ const setEventListeners = (films) => {
         },
       });
   
-      // Add an event listener to the slider for the "input" event
+      // Event listener on slider for the "input" event
       slider.addEventListener("input", () => {
         updateFilteredMovies(films);
       });
-  
-      // searchButton.addEventListener("click", () => {
-      //   const selectedDirector = document.getElementById("directorOptions").value;
-      //   const selectedSort = document.getElementById("sortOptions").value;
-      //   const selectedMinYear = parseInt(dateSlider.noUiSlider.get()[0]);
-      //   const selectedMaxYear = parseInt(dateSlider.noUiSlider.get()[1]);
-
-      //   let filteredMovies = films;
-
-      //   if (selectedDirector) {
-      //     filteredMovies = filterByDropdown(films, selectedDirector);
-      //   }
-
-      //   const filteredByDateMovies = filterByDateRange(filteredMovies, selectedMinYear, selectedMaxYear);
-      //   const sortedMovies = sortMovies(filteredByDateMovies, selectedSort);
-      //   buildCards(sortedMovies);
-      // });
   
       searchButton.addEventListener("click", () => {
         const selectedDirector = document.getElementById("directorOptions").value;
@@ -162,14 +150,14 @@ const setEventListeners = (films) => {
 
         const sortedMovies = sortMovies(filteredMovies, selectedSort);
             buildCards(sortedMovies);
-            updateFilteredMovies(sortedMovies); // Update based on the selected date range
+            updateFilteredMovies(sortedMovies); // Updates based on the selected date range
       });
   
       const showAllButton = document.querySelector(".show-all-button");
       showAllButton.addEventListener("click", () => {
         document.getElementById("directorOptions").selectedIndex = 0;
         document.getElementById("sortOptions").selectedIndex = 0;
-        dateSlider.noUiSlider.set([1986, 2023]); // Reset date slider
+        dateSlider.noUiSlider.set([1986, 2023]); // Resets date slider
         buildCards(films);
       });
 };
@@ -180,25 +168,8 @@ const filterByDateRange = (films, minYear, maxYear) => {
         return releaseYear >= minYear && releaseYear <= maxYear;
       });
 };
-    
- 
-function showMoreButton() {
-  var dots = document.getElementById("dots");
-  var moreText = document.getElementById("more");
-  var btnText = document.getElementById("myButton");
 
-  if (dots.style.display === "none") {
-    dots.style.display = "inline";
-    btnText.innerHTML = "Show more";
-    moreText.style.display = "none";
-  } else {
-    dots.style.display = "none";
-    btnText.innerHTML = "Show less";
-    moreText.style.display = "inline";
-  }
-}
-
-// JavaScript for Custom Slider
+// Custom Slider that hopefully works once I delete the noUIslider library
 
 const slider = document.getElementById("dateSlider");
 const handle1 = document.getElementById("handle-1");
@@ -222,7 +193,7 @@ function updateTooltips() {
   tooltip2.textContent = handle2.dataset.value;
 }
 
-// Initialize handles
+// For making the handles work
 handle1.dataset.value = "1986";
 handle2.dataset.value = "2023";
 updateTooltip(handle1, tooltip1);
@@ -257,6 +228,7 @@ function drag(event) {
   updateTooltip(activeHandle, activeHandle === handle1 ? tooltip1 : tooltip2);
 }
 
+// Calling Event listeners for the range slider
 handle1.addEventListener("mousedown", (e) => startDragging(e, handle1));
 handle2.addEventListener("mousedown", (e) => startDragging(e, handle2));
 window.addEventListener("mousemove", drag);
@@ -277,9 +249,27 @@ function updateFilteredMovies(films) {
 }
 updateTooltips();
 
+// Show more/Show less button
+function showMoreButton() {
+  var dots = document.getElementById("dots");
+  var moreText = document.getElementById("more");
+  var btnText = document.getElementById("myButton");
+
+  if (dots.style.display === "none") {
+    dots.style.display = "inline";
+    btnText.innerHTML = "Show more ↓";
+    moreText.style.display = "none";
+  } else {
+    dots.style.display = "none";
+    btnText.innerHTML = "Show less ↑";
+    moreText.style.display = "inline";
+  }
+}
+
 getData().then((films) => {
   setEventListeners(films);
 
-  // Initially, update the filtered movies based on the default slider values
+  // Updates the filtered movies based on the default slider values
   updateFilteredMovies(films);
 });
+

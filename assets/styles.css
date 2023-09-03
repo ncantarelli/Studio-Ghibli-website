@@ -224,7 +224,6 @@ footer {
 
 /* Show tooltips on hover */
 .custom-slider .slider-handle:hover+.slider-tooltip {
-
     display: block;
 }
 
