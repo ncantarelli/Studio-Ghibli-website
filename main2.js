@@ -118,20 +118,20 @@ const filterByDropdown = (films, selectedDirector) => {
 const setEventListeners = (films) => {
       const searchButton = document.querySelector(".search-button");
 
-      const dateSlider = document.getElementById("dateSlider");
-      noUiSlider.create(dateSlider, {
-        start: [1986, 2023], // Start and end years
-        connect: true,
-        range: {
-          min: 1986,
-          max: 2023,
-        },
-        tooltips: [true, true], // Show tooltips
-        format: {
-          to: (value) => Math.floor(value), // Display whole years
-          from: (value) => parseFloat(value),
-        },
-      });
+      // const dateSlider = document.getElementById("dateSlider");
+      // noUiSlider.create(dateSlider, {
+      //   start: [1986, 2023], // Start and end years
+      //   connect: true,
+      //   range: {
+      //     min: 1986,
+      //     max: 2023,
+      //   },
+      //   tooltips: [true, true], // Show tooltips
+      //   format: {
+      //     to: (value) => Math.floor(value), // Display whole years
+      //     from: (value) => parseFloat(value),
+      //   },
+      // });
   
       // Event listener on slider for the "input" event
       slider.addEventListener("input", () => {
@@ -266,10 +266,11 @@ function showMoreButton() {
   }
 }
 
-getData().then((films) => {
-  setEventListeners(films);
+getData()
+//   .then((films) => {
+//   setEventListeners(films);
 
-  // Updates the filtered movies based on the default slider values
-  updateFilteredMovies(films);
-});
+//   // Updates the filtered movies based on the default slider values
+//   updateFilteredMovies(films);
+// });
 
